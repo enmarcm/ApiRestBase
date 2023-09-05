@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB DE PRUEBA</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // fetch('http://localhost:1234/movies')
+    // .then(response => response.json())
+    // .then(pelicula => {
+    //     const peliculas = pelicula.map(pelicula => `<li>${pelicula.title}</li>
+    //     <img src=${pelicula.poster}>`).join('')
+
+    //     document.body.innerHTML += peliculas
+
+    //     // console.log(pelicula)
+    // })
+    // .catch(err=>console.log('Hubo un error ', err))
+
+    fetch('https://rest-api-deploy-50au-dev.fl0.io/movies')
+        .then(response => response.json())
+        .then(respuesta => console.log(respuesta))
+        .catch(err => console.log('Hubo un error ', err))
+</script>
+
+</html>

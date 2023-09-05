@@ -1,0 +1,38 @@
+###RECUPERAR TODAS LAS PELICULAS
+GET http://localhost:1234/movies
+
+
+###RECUPERAR LAS PELICULAS POR ID
+GET http://localhost:1234/movies/1
+
+
+###RECUPERAR TODAS LAS PELICULAS DE UN GENERO
+GET http://localhost:1234/movies?genre=action
+
+
+###HACER UN POST - CREAR UNA NUEVA PELICULA 
+POST http://localhost:1234/movies
+Content-Type: application/json
+
+{
+  "sql": "SELECT * FROM payments",
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": 2001,
+    "director": "Peter Jackson",
+    "duration":123,
+    "genre": [
+      "Adventure",
+      "Drama",
+      "Fantasy"
+    ],
+    "poster": "https://i.pinimg.com/originals/f1/43/69/f14369fb56e47283f02038b920654056.jpg",
+    "rate": 8.5
+}
+
+###HACER UN PATCH
+PATCH http://localhost:1234/movies/8fb17ae1-bdfe-45e5-a871-4772d7e526b8 HTTP/1.1
+Content-Type: application/json
+
+{
+  "year": 1987
+}
