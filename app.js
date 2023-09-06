@@ -1,13 +1,28 @@
-const express = require("express");
-const pc = require("picocolors");
+import express, { json } from "express";
+import pc from "picocolors";
+import { randomUUID } from "node:crypto";
+import { verifyMovie, verifyPartialMovie } from "./schemas/movieSchema.js";
+
+//Importar los JSON
+//* Opcion 1 - Asi no sera, en cualquier momento deja de tener soporte
+//  import movies from "./movies.json" assert {type: 'json'};
+
+//* Opcion 2 - Asi sera, pero aun no tiene soporte
+//  import movies from "./movies.json" with {type: 'json'};
+
+//* Opcion 3 - Con File System
+//  import { readFileSync } from "node:fs";
+//  const movies = JSON.parse(readFileSync("./movies.json", "utf-8"));
+
+//* Opcion 4 - Creando un require 
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
 const movies = require("./movies.json");
-const crypto = require("node:crypto");
-const { verifyMovie, verifyPartialMovie } = require("./schemas/movieSchema.js");
 
 const PORT = process.env.PORT ?? 1234;
 
 const app = express();
-app.use(express.json());
+app.use(json());
 app.disable("x-powered-by");
 
 app.use((req, res, next) => {
@@ -70,7 +85,7 @@ app.post("/movies", (req, res) => {
 
   //Esto se hara en BDD
   const objMovie = {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     ...resultado.data, //Obtenemos todo el data aceptado
   };
 

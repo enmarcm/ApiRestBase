@@ -1,4 +1,4 @@
-const z = require('zod')
+import z from "zod";
 
 const movieSchema = z.object({
   title: z.string({
@@ -37,9 +37,6 @@ const movieSchema = z.object({
 
 const verifyMovie = (obj) => movieSchema.safeParse(obj);
 
-const verifyPartialMovie = (obj) => movieSchema.partial().safeParse(obj)
+const verifyPartialMovie = (obj) => movieSchema.partial().safeParse(obj);
 
-module.exports = {
-  verifyMovie,
-  verifyPartialMovie
-};
+export { verifyMovie, verifyPartialMovie };
