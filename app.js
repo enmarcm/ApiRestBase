@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import pc from "picocolors";
-import {midCorsCompleto, midNotFound} from "./middlewares/middlewares.js";
+import { midCorsCompleto, midNotFound } from "./middlewares/middlewares.js";
+import moviesRouter from "./routers/moviesRouter.js";
 //Importar los JSON
 //* Opcion 1 - Asi no sera, en cualquier momento deja de tener soporte
 //  import movies from "./movies.json" assert {type: 'json'};
@@ -13,10 +14,10 @@ import {midCorsCompleto, midNotFound} from "./middlewares/middlewares.js";
 //  const movies = JSON.parse(readFileSync("./movies.json", "utf-8"));
 
 //* Opcion 4 - Creando un require
-import { createRequire } from "node:module";
-import moviesRouter from "./routers/moviesRouter.js";
-const require = createRequire(import.meta.url);
-const movies = require("./movies.json");
+// import { createRequire } from "node:module";
+// import moviesRouter from "./routers/moviesRouter.js";
+// const require = createRequire(import.meta.url);
+// const movies = require("./movies.json");
 
 const PORT = process.env.PORT ?? 1234;
 

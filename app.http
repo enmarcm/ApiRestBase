@@ -5,6 +5,8 @@ GET http://localhost:1234/movies
 ###RECUPERAR LAS PELICULAS POR ID
 GET http://localhost:1234/movies/1
 
+###RECUPERAR LAS PELICULAS POR ID EXISTENETE
+GET http://localhost:1234/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
 
 ###RECUPERAR TODAS LAS PELICULAS DE UN GENERO
 GET http://localhost:1234/movies?genre=action
@@ -29,10 +31,13 @@ Content-Type: application/json
     "rate": 8.5
 }
 
+###ELIMINAR UNA PELICULA
+DELETE http://localhost:1234/movies/8fb17ae1-bdfe-45e5-a871-4772d7e526b8
+
 ###HACER UN PATCH
 PATCH http://localhost:1234/movies/8fb17ae1-bdfe-45e5-a871-4772d7e526b8 HTTP/1.1
 Content-Type: application/json
 
 {
-  "year": 1987
+  "year": 1901
 }
