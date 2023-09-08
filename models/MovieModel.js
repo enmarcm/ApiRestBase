@@ -50,10 +50,8 @@ class MovieModel {
 
   static update = async ({ id, objMovie }) => {
     const movieIndex = movies.findIndex((movie) => movie.id === id);
-    if (movieIndex === -1)
-      throw res
-        .status(404)
-        .json({ message: "No se ha encontrado la pelicula" });
+    console.log(movieIndex)
+    if (movieIndex === -1) return false
 
     const movie = {
       ...movies[movieIndex],

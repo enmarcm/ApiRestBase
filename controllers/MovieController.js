@@ -42,10 +42,17 @@ class MovieController {
     const { id } = req.params;
     const resultado = verifyPartialMovie(req.body);
 
+
     if (!resultado.success)
       throw res.status(422).json(JSON.parse(resultado.error.message));
 
     const movie = await MovieModel.update({ id, objMovie: resultado.data });
+
+    if (!movie) {
+      return res
+        .status(404)
+        .json({ message: "No se ha encontrado la pelicula" });
+    }
 
     res.status(202).json(movie);
   };
