@@ -39,6 +39,7 @@ class MovieModel {
     return newMovie;
   };
 
+  //HAGO UN CAMBIO PARA PROBAR ALGO
   static delete = async ({ id }) => {
     const movieIndex = movies.findIndex((movie) => movie.id === id);
     if (movieIndex === -1) return false;
