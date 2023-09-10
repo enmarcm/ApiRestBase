@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "start-mysql": "node --watch ./servers/server-mysql.js"
+    "start": "node ./servers/server-local.js",
+    "start-mysql": "node --watch ./servers/server-mysql.js",
+    "start-local": "node --watch ./servers/server-local.js"
   },
   "keywords": [],
   "author": "",
