@@ -1,7 +1,11 @@
 import express, { json } from "express";
 import pc from "picocolors";
 import { midCorsCompleto, midNotFound } from "./middlewares/middlewares.js";
-import moviesRouter from "./routers/moviesRouter.js";
+import createMovieRouter from "./routers/moviesRouter.js";
+
+// *No lo usamos en vista de que ahora lo manera el createApp
+// import MovieModel from "./models/pg-pool/MovieModel.js";
+
 //Importar los JSON
 //* Opcion 1 - Asi no sera, en cualquier momento deja de tener soporte
 //  import movies from "./movies.json" assert {type: 'json'};
@@ -19,25 +23,31 @@ import moviesRouter from "./routers/moviesRouter.js";
 // const require = createRequire(import.meta.url);
 // const movies = require("./movies.json");
 
-const PORT = process.env.PORT ?? 1234;
+const createApp = ({ MovieModel }) => {
+  const PORT = process.env.PORT ?? 1234;
 
-const app = express();
-app.use(json());
-app.disable("x-powered-by");
+  const app = express();
+  app.use(json());
+  app.disable("x-powered-by");
 
-app.use(midCorsCompleto)
+  app.use(midCorsCompleto);
 
-app.get("/", (req, res) => {
-  console.log(pc.bgWhite(pc.black(`PETICION DESDE ${req.url}`)));
-  res
-    .set("content-type", "text/html ; charset=utf-8")
-    .end("PAGINA PRINCIPAL</h1>");
-});
+  app.get("/", (req, res) => {
+    console.log(pc.bgWhite(pc.black(`PETICION DESDE ${req.url}`)));
+    res
+      .set("content-type", "text/html ; charset=utf-8")
+      .end("PAGINA PRINCIPAL</h1>");
+  });
 
-app.use("/movies", moviesRouter);
+  app.use("/movies", createMovieRouter({ MovieModel }));
 
-app.use(midNotFound);
+  app.use(midNotFound);
 
-app.listen(PORT, () => {
-  console.log(pc.bgMagenta(`SERVIDOR INICIADO EN  http://localhost:${PORT}`));
-});
+  app.listen(PORT, () => {
+    console.log(pc.bgMagenta(`SERVIDOR INICIADO EN  http://localhost:${PORT}`));
+  });
+
+  return app;
+};
+
+export default createApp;

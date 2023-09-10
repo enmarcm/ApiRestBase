@@ -1,24 +1,33 @@
 import { verifyMovie, verifyPartialMovie } from "../schemas/movieSchema.js";
-import MovieModel from "../models/MovieModel.js";
 import pc from "picocolors";
 
+//Este era el MOdelo del JSON local
+// import MovieModel from "../models/local/MovieModel.js";
+
+//Usaremos ahora el modelo de la BDD postgres
+// import MovieModel from "../models/pg-pool/MovieModel.js";
 
 class MovieController {
-  static getAll = async (req, res) => {
+
+  constructor({ MovieModel }) {
+    this.movieModel = MovieModel
+  }
+
+  getAll = async (req, res) => {
     console.log(pc.bgWhite(pc.black(`UN USUARIO HA PEDIDO PELICULAS`)));
 
     const { genre, limit, page } = req.query;
 
-    const movies = await MovieModel.getAll({ genre, limit, page });
+    const movies = await this.movieModel.getAll({ genre, limit, page });
 
     res.json(movies);
   };
 
-  static getByID = async (req, res) => {
+  getByID = async (req, res) => {
     console.log(pc.bgWhite(pc.black(`UN USUARIO HA PEDIDO UNA PELICULA`)));
     const { id } = req.params;
 
-    const dato = await MovieModel.getById({ id });
+    const dato = await this.movieModel.getById({ id });
     if (dato) return res.json(dato);
 
     res
@@ -27,18 +36,18 @@ class MovieController {
       .end("<h1>404. NO SE HA ENCONTRADO ESE ID</h1>");
   };
 
-  static create = async (req, res) => {
+  create = async (req, res) => {
     const resultado = verifyMovie(req.body);
 
     if (!resultado.success)
       throw res.status(422).json(JSON.parse(resultado.error.message));
 
-    const objMovie = await MovieModel.create({ objMovie: resultado.data });
+    const objMovie = await this.movieModel.create({ objMovie: resultado.data });
 
     res.status(201).json(objMovie);
   };
 
-  static update = async (req, res) => {
+  update = async (req, res) => {
     const { id } = req.params;
     const resultado = verifyPartialMovie(req.body);
 
@@ -46,7 +55,7 @@ class MovieController {
     if (!resultado.success)
       throw res.status(422).json(JSON.parse(resultado.error.message));
 
-    const movie = await MovieModel.update({ id, objMovie: resultado.data });
+    const movie = await this.movieModel.update({ id, objMovie: resultado.data });
 
     if (!movie) {
       return res
@@ -57,10 +66,10 @@ class MovieController {
     res.status(202).json(movie);
   };
 
-  static delete = async (req, res) => {
+  delete = async (req, res) => {
     const { id } = req.params;
 
-    const result = await MovieModel.delete({ id });
+    const result = await this.movieModel.delete({ id });
 
     if (!result)
       throw res
@@ -70,7 +79,7 @@ class MovieController {
     return res.json({ message: "Pelicula borrada correctamente" });
   };
 
-  static options = async (req, res) => {
+  options = async (req, res) => {
     res.header(
       "Access-Control-Allow-Methods",
       "GET, POST, PATCH, DELETE, OPTIONS"

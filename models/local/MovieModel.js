@@ -1,4 +1,4 @@
-import importJSON from "../utils/importJSON.js";
+import importJSON from "../../utils/importJSON.js";
 import { randomUUID } from "node:crypto";
 
 const movies = importJSON("../movies.json");
@@ -7,7 +7,7 @@ class MovieModel {
   static getAll = async ({ genre, page, limit }) => {
     if (genre) return await MovieModel.#getGenre({ genre });
 
-    if (limit) return await MovieModel.#getPagionation({ page, limit });
+    if (limit) return await MovieModel.#getPagination({ page, limit });
 
     return movies;
   };
@@ -19,7 +19,7 @@ class MovieModel {
     return peliculas;
   };
 
-  static #getPagionation = async ({ page = 1, limit }) => {
+  static #getPagination = async ({ page = 1, limit }) => {
     const limitNumber = limit * page;
 
     const peliculasMostrar = movies.slice(limitNumber - limit, limitNumber);

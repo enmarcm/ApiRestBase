@@ -11,7 +11,7 @@ GET http://localhost:1234/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
 ###RECUPERAR TODAS LAS PELICULAS DE UN GENERO
 GET http://localhost:1234/movies?genre=action
 
-
+ 
 ###HACER UN POST - CREAR UNA NUEVA PELICULA 
 POST http://localhost:1234/movies
 Content-Type: application/json
