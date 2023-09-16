@@ -41,3 +41,9 @@ Content-Type: application/json
 {
   "year": 1901
 }
+
+
+###PREUEBA
+GET https://api.themoviedb.org/3/authentication
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWUyYmVjYjM2MzNiNGM0YTcxMzg0NWE3YTE4ZTc1YyIsInN1YiI6IjY0Yzk1MTdiZDM3MTk3MDBjNWRlMDhmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4dPa3sB0GDIuiixWMlB-p43-i6GIVWshafX8UWiCvG4
+Accept: application/json
